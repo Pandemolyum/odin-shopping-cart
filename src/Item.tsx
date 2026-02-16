@@ -15,14 +15,11 @@ export default function Item({
             <img src={imgUrl} alt="" />
             <p>{price}</p>
             <div className="qty">
-                <button className="qty">
-                    <img src="" alt="" />
-                </button>
+                <button className="qty">-</button>
                 <input type="number" className="qty" value={quantity} />
-                <button className="qty">
-                    <img src="" alt="" />
-                </button>
+                <button className="qty">+</button>
             </div>
+            <button className="qty">Add to Cart</button>
         </div>
     );
 }
