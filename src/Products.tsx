@@ -6,7 +6,13 @@ const RAW_PRODUCTS = [
     { id: 3, name: "Orange", price: 45, quantity: 0, imgUrl: null },
 ];
 
-function createItem(item, addToCart) {
+function createItem(
+    item,
+    cartAction,
+    buttonDescription = "Add To Cart",
+    onQtyChange = () => {},
+    quantity = 0,
+) {
     return (
         <Item
             key={item.id}
@@ -14,7 +20,10 @@ function createItem(item, addToCart) {
             name={item.name}
             imgUrl={item.imgUrl}
             price={item.price}
-            addToCart={addToCart}
+            quantity={quantity}
+            cartAction={cartAction}
+            cartButtonDescription={buttonDescription}
+            onQtyChange={onQtyChange}
         />
     );
 }

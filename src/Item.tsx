@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Item({
     productId,
@@ -6,7 +6,9 @@ export default function Item({
     imgUrl,
     price,
     quantity = 0,
-    addToCart,
+    cartAction,
+    cartButtonDescription = "Add To Cart",
+    onQtyChange = () => {},
 }: {
     productId: number;
     name: string;
@@ -15,6 +17,10 @@ export default function Item({
     quantity?: number;
 }) {
     const [qty, setQty] = useState<number>(quantity);
+
+    useEffect(() => {
+        onQtyChange(productId, qty);
+    }, [qty]);
 
     const handleIncrement = () => {
         if (qty < 100) {
@@ -56,8 +62,8 @@ export default function Item({
                     +
                 </button>
             </div>
-            <button className="qty" onClick={addToCart}>
-                Add to Cart
+            <button className="qty" onClick={cartAction}>
+                {cartButtonDescription}
             </button>
         </div>
     );

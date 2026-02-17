@@ -23,9 +23,7 @@ function App() {
         if (quantity === 0) return;
 
         const productId = parent.dataset.productId;
-        console.log("🚀 ~ addToCart ~ productId:", productId);
         const itemInCart = cart.find((item) => item.id == productId);
-        console.log("🚀 ~ addToCart ~ itemInCart:", itemInCart);
         const itemRaw = RAW_PRODUCTS.filter((item) => item.id == productId)[0];
 
         if (itemInCart === undefined) {
@@ -42,7 +40,6 @@ function App() {
                 ),
             );
         }
-        console.log("🚀 ~ addToCart ~ cart:", cart);
     };
 
     const removeFromCart = (e) => {
@@ -52,11 +49,23 @@ function App() {
         setCart(cart.filter((item) => item.id != productId));
     };
 
+    const onQtyChange = (productId, quantity) => {
+        setCart(
+            cart.map((item) =>
+                item.id == productId ? { ...item, quantity: quantity } : item,
+            ),
+        );
+    };
+
     return (
         <>
             <Header totalItems={totalItems} />
             {name === "cart" ? (
-                <Cart cart={cart} removeFromCart={removeFromCart} />
+                <Cart
+                    cart={cart}
+                    removeFromCart={removeFromCart}
+                    onQtyChange={onQtyChange}
+                />
             ) : name === "shop" ? (
                 <Shop addToCart={addToCart} />
             ) : (
