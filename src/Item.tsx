@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 
 export default function Item({
+    productId,
     name,
     imgUrl,
     price,
     quantity = 0,
     addToCart,
 }: {
+    productId: number;
     name: string;
     imgUrl: string;
     price: number;
@@ -36,7 +38,7 @@ export default function Item({
     };
 
     return (
-        <div className="item">
+        <div className="item" data-product-id={productId}>
             <h3>{name}</h3>
             <img src={imgUrl} alt="" />
             <p>{price}</p>
@@ -54,7 +56,7 @@ export default function Item({
                     +
                 </button>
             </div>
-            <button className="qty" addToCart={addToCart}>
+            <button className="qty" onClick={addToCart}>
                 Add to Cart
             </button>
         </div>

@@ -5,7 +5,7 @@ export default function Shop({ addToCart }) {
         <>
             <h1>Shop Page</h1>
             <div className="shop">
-                {RAW_PRODUCTS.map((item) => createItem(item))}
+                {RAW_PRODUCTS.map((item) => createItem(item, addToCart))}
             </div>
         </>
     );

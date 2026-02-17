@@ -1,15 +1,17 @@
+import { Link } from "react-router";
+
 export default function Header({ totalItems = 0 }: { totalItems?: number }) {
     return (
         <header>
             <ul>
                 <li>
-                    <a href="/">Home</a>
+                    <Link to="/">Home</Link>
                 </li>
                 <li>
-                    <a href="shop">Shop</a>
+                    <Link to="/shop">Shop</Link>
                 </li>
                 <li>
-                    <a href="cart">Cart {totalItems}</a>
+                    <Link to="/cart">Cart ({totalItems})</Link>
                 </li>
             </ul>
         </header>
