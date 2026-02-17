@@ -1,8 +1,4 @@
-export default function Header({
-    cartItems: number = 0,
-}: {
-    cartItems?: number;
-}) {
+export default function Header({ totalItems = 0 }: { totalItems?: number }) {
     return (
         <header>
             <ul>
@@ -13,7 +9,7 @@ export default function Header({
                     <a href="shop">Shop</a>
                 </li>
                 <li>
-                    <a href="cart">Cart {number}</a>
+                    <a href="cart">Cart {totalItems}</a>
                 </li>
             </ul>
         </header>

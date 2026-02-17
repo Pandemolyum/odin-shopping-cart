@@ -5,6 +5,7 @@ export default function Item({
     imgUrl,
     price,
     quantity = 0,
+    addToCart,
 }: {
     name: string;
     imgUrl: string;
@@ -53,7 +54,9 @@ export default function Item({
                     +
                 </button>
             </div>
-            <button className="qty">Add to Cart</button>
+            <button className="qty" addToCart={addToCart}>
+                Add to Cart
+            </button>
         </div>
     );
 }

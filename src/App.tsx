@@ -1,20 +1,37 @@
+import { useState } from "react";
+import { useParams } from "react-router";
 import "./App.css";
 import Header from "./Header.tsx";
+import Home from "./Home.tsx";
+import Shop from "./Shop.tsx";
+import Cart from "./Cart.tsx";
 
 function App() {
+    const { name } = useParams();
+
+    const [cart, setCart] = useState([]);
+
+    const totalItems = cart.reduce(
+        (total, item) => (total = total + item.quantity),
+        0,
+    );
+
+    const addToCart = () => {};
+
+    // const removeFromCart = () => {
+    //   setCart()
+    // }
+
     return (
         <>
-            <Header />
-            <h1>Home Page</h1>
-            <p>Welcome to the shop!</p>
-            <p>
-                Please take a look at the <a href="shop">Shop</a> page and add
-                items to your cart.
-            </p>
-            <p>
-                If you are a compulsive shopper this is the perfect place toi
-                manage your impulses as you cannot checkout your items.
-            </p>
+            <Header totalItems={totalItems} />
+            {name === "cart" ? (
+                <Cart cart={cart} />
+            ) : name === "shop" ? (
+                <Shop addToCart={addToCart} />
+            ) : (
+                <Home />
+            )}
         </>
     );
 }

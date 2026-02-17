@@ -6,13 +6,16 @@ const RAW_PRODUCTS = [
     { id: 3, name: "Orange", price: 45, imgUrl: null },
 ];
 
-const products: Array<React.ReactElement> = RAW_PRODUCTS.map((item) => (
-    <Item
-        key={item.id}
-        name={item.name}
-        imgUrl={item.imgUrl}
-        price={item.price}
-    />
-));
+function createItem(item, addToCart) {
+    return (
+        <Item
+            key={item.id}
+            name={item.name}
+            imgUrl={item.imgUrl}
+            price={item.price}
+            addToCart={addToCart}
+        />
+    );
+}
 
-export default products;
+export { createItem, RAW_PRODUCTS };

@@ -1,6 +1,4 @@
 import App from "./App.tsx";
-import Shop from "./Shop.tsx";
-import Cart from "./Cart.tsx";
 import ErrorPage from "./ErrorPage.tsx";
 
 const routes = [
@@ -10,12 +8,8 @@ const routes = [
         errorElement: <ErrorPage />,
     },
     {
-        path: "shop",
-        element: <Shop />,
-    },
-    {
-        path: "cart",
-        element: <Cart />,
+        path: "/:name",
+        element: <App />,
     },
 ];
 

@@ -1,12 +1,12 @@
-import Header from "./Header.tsx";
-import products from "./Products.tsx";
+import { createItem, RAW_PRODUCTS } from "./Products.tsx";
 
-export default function Shop() {
+export default function Shop({ addToCart }) {
     return (
         <>
-            <Header />
             <h1>Shop Page</h1>
-            <div className="shop">{products}</div>
+            <div className="shop">
+                {RAW_PRODUCTS.map((item) => createItem(item))}
+            </div>
         </>
     );
 }
