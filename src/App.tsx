@@ -1,16 +1,49 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import "./App.css";
 import Header from "./Header.tsx";
 import Home from "./Home.tsx";
 import Shop from "./Shop.tsx";
 import Cart from "./Cart.tsx";
-import { RAW_PRODUCTS } from "./Products.tsx";
 
 function App() {
-    const { name } = useParams();
+    const [products, setProducts] = useState(null); // Fetched data
+    const [cart, setCart] = useState([]); // Cart data
+    const [loading, setLoading] = useState(true); // Display loading while products are being fetched
+    const [error, setError] = useState(null); // Display error if fetch fails
 
-    const [cart, setCart] = useState([]);
+    // Set document title
+    useEffect(() => {
+        document.title = "Shopping Cart";
+    }, []);
+
+    // Fetch products
+    useEffect(() => {
+        fetch("https://fakestoreapi.com/products")
+            .then((response) => {
+                if (response.status >= 400) {
+                    throw new Error("server error");
+                }
+                return response.json();
+            })
+            .then((response) =>
+                setProducts(
+                    response.map((item) => {
+                        return {
+                            id: item.id,
+                            name: item.title,
+                            price: item.price,
+                            quantity: 0,
+                            imgUrl: item.image,
+                        };
+                    }),
+                ),
+            )
+            .catch((error) => setError(error))
+            .finally(() => setLoading(false));
+    }, []);
+
+    const { name } = useParams(); // For page routing
 
     const totalItems = cart.reduce(
         (total, item) => (total = total + item.quantity),
@@ -24,7 +57,7 @@ function App() {
 
         const productId = parent.dataset.productId;
         const itemInCart = cart.find((item) => item.id == productId);
-        const itemRaw = RAW_PRODUCTS.filter((item) => item.id == productId)[0];
+        const itemRaw = products.filter((item) => item.id == productId)[0];
 
         if (itemInCart === undefined) {
             setCart([
@@ -57,6 +90,13 @@ function App() {
         );
     };
 
+    // This function determines what the Shop page will output in case errors are encountered
+    const shop = () => {
+        if (loading) return <p>Loading...</p>;
+        if (error) return <p>A network error was encountered</p>;
+        return <Shop addToCart={addToCart} products={products} />;
+    };
+
     return (
         <>
             <Header totalItems={totalItems} />
@@ -67,7 +107,7 @@ function App() {
                     onQtyChange={onQtyChange}
                 />
             ) : name === "shop" ? (
-                <Shop addToCart={addToCart} />
+                shop()
             ) : (
                 <Home />
             )}

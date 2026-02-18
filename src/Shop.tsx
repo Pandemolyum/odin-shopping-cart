@@ -1,11 +1,11 @@
-import { createItem, RAW_PRODUCTS } from "./Products.tsx";
+import { createItem } from "./Products.tsx";
 
-export default function Shop({ addToCart }) {
+export default function Shop({ addToCart, products }) {
     return (
         <>
             <h1>Shop Page</h1>
             <div className="shop">
-                {RAW_PRODUCTS.map((item) => createItem(item, addToCart))}
+                {products.map((item) => createItem(item, addToCart))}
             </div>
         </>
     );
