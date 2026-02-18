@@ -1,11 +1,21 @@
 import { createItem } from "./Products.tsx";
+import type { cartData, inputEventVoid } from "./types.tsx";
 
-export default function Shop({ addToCart, products }) {
+export default function Shop({
+    addToCart,
+    products,
+}: {
+    addToCart: inputEventVoid;
+    products: Array<cartData> | null;
+}) {
     return (
         <>
             <h1>Shop Page</h1>
             <div className="shop">
-                {products.map((item) => createItem(item, addToCart))}
+                {products &&
+                    products.map((item: cartData) =>
+                        createItem(item, addToCart),
+                    )}
             </div>
         </>
     );

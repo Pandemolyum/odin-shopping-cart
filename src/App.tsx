@@ -1,14 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router";
 import "./App.css";
 import Header from "./Header.tsx";
 import Home from "./Home.tsx";
 import Shop from "./Shop.tsx";
 import Cart from "./Cart.tsx";
+import type { cartData } from "./types.tsx";
+
+interface fetchedData {
+    id: number;
+    title: string;
+    price: number;
+    description: string;
+    category: string;
+    image: string;
+}
 
 function App() {
-    const [products, setProducts] = useState(null); // Fetched data
-    const [cart, setCart] = useState([]); // Cart data
+    const [products, setProducts] = useState<Array<cartData> | null>(null); // Fetched data
+    const [cart, setCart] = useState<Array<cartData>>([]); // Cart data
     const [loading, setLoading] = useState(true); // Display loading while products are being fetched
     const [error, setError] = useState(null); // Display error if fetch fails
 
@@ -28,7 +38,7 @@ function App() {
             })
             .then((response) =>
                 setProducts(
-                    response.map((item) => {
+                    response.map((item: fetchedData) => {
                         return {
                             id: item.id,
                             name: item.title,
@@ -46,18 +56,29 @@ function App() {
     const { name } = useParams(); // For page routing
 
     const totalItems = cart.reduce(
-        (total, item) => (total = total + item.quantity),
+        (total, item: cartData) => (total = total + item.quantity),
         0,
     );
 
-    const addToCart = (e) => {
-        const parent = e.target.parentNode;
-        const quantity = Number(parent.querySelector("input.qty").value);
+    const addToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
+        const parent = (e.target as HTMLElement).parentNode;
+        if (!parent) return;
+
+        const inputElement: Element | null = parent.querySelector("input.qty");
+        if (!inputElement) return;
+
+        const quantity = Number((inputElement as HTMLInputElement).value);
         if (quantity === 0) return;
 
-        const productId = parent.dataset.productId;
-        const itemInCart = cart.find((item) => item.id == productId);
-        const itemRaw = products.filter((item) => item.id == productId)[0];
+        const productId = (parent as HTMLElement).dataset.productId;
+        const itemInCart = cart.find(
+            (item: cartData) => item.id === Number(productId),
+        );
+
+        if (products === null) return;
+        const itemRaw: cartData = products.filter(
+            (item) => item.id === Number(productId),
+        )[0];
 
         if (itemInCart === undefined) {
             setCart([
@@ -67,7 +88,7 @@ function App() {
         } else {
             setCart(
                 cart.map((item) =>
-                    item.id == productId
+                    item.id === Number(productId)
                         ? { ...item, quantity: item.quantity + quantity }
                         : item,
                 ),
@@ -75,20 +96,23 @@ function App() {
         }
     };
 
-    const removeFromCart = (e) => {
-        const parent = e.target.parentNode;
-        const productId = parent.dataset.productId;
+    const removeFromCart = (e: React.MouseEvent<HTMLButtonElement>) => {
+        const parent = (e.target as HTMLElement).parentNode;
+        if (!parent) return;
 
-        setCart(cart.filter((item) => item.id != productId));
+        const productId = (parent as HTMLElement).dataset.productId;
+
+        setCart(cart.filter((item) => item.id !== Number(productId)));
     };
 
-    const onQtyChange = (productId, quantity) => {
-        setCart(
-            cart.map((item) =>
-                item.id == productId ? { ...item, quantity: quantity } : item,
+    // useCallback ensures the function is not called again which would trigger the effect in Item.tsx
+    const onQtyChange = useCallback((productId: number, quantity: number) => {
+        setCart((prevCart) =>
+            prevCart.map((item) =>
+                item.id === productId ? { ...item, quantity: quantity } : item,
             ),
         );
-    };
+    }, []);
 
     // This function determines what the Shop page will output in case errors are encountered
     const shop = () => {

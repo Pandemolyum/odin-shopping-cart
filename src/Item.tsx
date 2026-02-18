@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import type { inputEventVoid, cartQtyUpdateVoid } from "./types.tsx";
 
 export default function Item({
     productId,
@@ -15,12 +16,15 @@ export default function Item({
     imgUrl: string;
     price: number;
     quantity?: number;
+    cartAction: inputEventVoid;
+    cartButtonDescription: string;
+    onQtyChange: cartQtyUpdateVoid;
 }) {
     const [qty, setQty] = useState<number>(quantity);
 
     useEffect(() => {
         onQtyChange(productId, qty);
-    }, [qty]);
+    }, [qty, productId, onQtyChange]);
 
     const handleIncrement = () => {
         if (qty < 100) {

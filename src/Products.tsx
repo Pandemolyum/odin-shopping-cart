@@ -1,11 +1,12 @@
 import Item from "./Item.tsx";
+import type { cartData, inputEventVoid, cartQtyUpdateVoid } from "./types.tsx";
 
 function createItem(
-    item,
-    cartAction,
-    buttonDescription = "Add To Cart",
-    onQtyChange = () => {},
-    quantity = 0,
+    item: cartData,
+    cartAction: inputEventVoid,
+    buttonDescription: string = "Add To Cart",
+    onQtyChange: cartQtyUpdateVoid = () => {},
+    quantity: number = 0,
 ) {
     return (
         <Item
