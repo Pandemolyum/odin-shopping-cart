@@ -66,7 +66,7 @@ export default function Item({
                     +
                 </button>
             </div>
-            <button className="qty" onClick={cartAction}>
+            <button className="cartAction" onClick={cartAction}>
                 {cartButtonDescription}
             </button>
         </div>
