@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import type { inputEventVoid, cartQtyUpdateVoid } from "./types.tsx";
+import styles from "./item.module.css";
 
 export default function Item({
     productId,
@@ -48,27 +49,37 @@ export default function Item({
     };
 
     return (
-        <div className="item" data-product-id={productId}>
-            <h3>{name}</h3>
-            <img src={imgUrl} alt="" />
-            <p>{price}</p>
-            <div className="qty">
-                <button className="qty" onClick={handleDecrement}>
-                    -
-                </button>
-                <input
-                    type="number"
-                    className="qty"
-                    value={qty}
-                    onChange={handleChange}
-                />
-                <button className="qty" onClick={handleIncrement}>
-                    +
-                </button>
+        <div className={`card ${styles.card}`} data-product-id={productId}>
+            <h3 className={styles.title}>{name}</h3>
+            <div className={styles.separator}>
+                <img className={styles.img} src={imgUrl} alt="" />
+                <div className={styles.details}>
+                    <p>${price}</p>
+                    <div className={styles.divqty}>
+                        <button
+                            className={`${styles.button} ${styles.leftButton}`}
+                            onClick={handleDecrement}
+                        >
+                            -
+                        </button>
+                        <input
+                            className={`qty ${styles.input}`}
+                            type="number"
+                            value={qty}
+                            onChange={handleChange}
+                        />
+                        <button
+                            className={`${styles.button} ${styles.rightButton}`}
+                            onClick={handleIncrement}
+                        >
+                            +
+                        </button>
+                    </div>
+                    <button className={styles.cartAction} onClick={cartAction}>
+                        {cartButtonDescription}
+                    </button>
+                </div>
             </div>
-            <button className="cartAction" onClick={cartAction}>
-                {cartButtonDescription}
-            </button>
         </div>
     );
 }

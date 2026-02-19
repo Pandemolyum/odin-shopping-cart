@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
+
+.header {
+    font-size: larger;
+    font-family: "Roboto Mono", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: whitesmoke;
+    position: sticky;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    background-color: #797e9c;
+}
+
+.ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 0;
+}
+
+.li {
+    padding: 2rem 0;
+}
+
+.primary {
+    composes: primaryFontColor from "./colors.module.css";
+    flex: 1;
+
+    &:hover {
+        background-color: #3f238e34;
+        color: rgba(245, 245, 245, 0.75);
+    }
+}

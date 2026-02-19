@@ -86,8 +86,11 @@ describe("App component", () => {
         await user.click(incrButton);
         await user.click(cartButton);
 
-        const cartText = await screen.findByRole("link", { name: "Cart (1)" });
+        const cartTextArr = await screen.findAllByRole("link");
+        const cartText = cartTextArr[2];
         expect(cartText).toBeInTheDocument();
+
+        expect(cartText.children[0].textContent).toBe("Cart (1)");
     });
 
     it("renders cart items in cart page", async () => {

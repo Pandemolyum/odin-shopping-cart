@@ -1,0 +1,80 @@
+.card {
+    composes: secondaryBgc from "./colors.module.css";
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    color: midnightblue;
+    border: 1px solid midnightblue;
+    width: calc(100% - 100px);
+}
+
+.img {
+    max-width: 140px;
+    max-height: 140px;
+    padding: 2rem;
+}
+
+.price {
+    font-weight: 700;
+}
+
+.separator {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+}
+
+.divqty {
+    display: flex;
+}
+
+.input {
+    color: midnightblue;
+    font-size: large;
+    font-weight: 700;
+    text-align: center;
+    width: 100px;
+    margin: 0;
+    padding: 0.7rem 0.5rem 0.5rem;
+    border: 1px solid midnightblue;
+    background-color: rgb(224, 224, 224);
+}
+
+.button {
+    color: midnightblue;
+    font-size: large;
+    font-weight: 1000;
+    text-align: center;
+    margin: 0;
+    border: 1px solid midnightblue;
+    background-color: rgb(224, 224, 224);
+    width: 50px;
+}
+
+.leftButton {
+    border-radius: 2rem 0% 0% 0%;
+    border-right: 0;
+    padding: 0.5rem 0.7rem 0.7rem 1rem;
+}
+
+.rightButton {
+    border-radius: 0% 2rem 0% 0%;
+    border-left: 0;
+    padding: 0.5rem 0.8rem 0.7rem 0.5rem;
+}
+
+.cartAction {
+    font-size: 1.1rem;
+    border: 1px solid midnightblue;
+    border-top: 0;
+    border-radius: 0% 0% 2rem 2rem;
+    background-color: rgb(224, 224, 224);
+    color: midnightblue;
+    width: calc(100px * 3 + 0.7rem+ 1rem+ 0.8rem+ 0.5rem);
+}

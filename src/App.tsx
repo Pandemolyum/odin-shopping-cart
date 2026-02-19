@@ -61,8 +61,12 @@ function App() {
     );
 
     const addToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
-        const parent = (e.target as HTMLElement).parentNode;
+        let parent = (e.target as HTMLElement).parentNode;
         if (!parent) return;
+        while (!(parent as HTMLElement).classList.contains("card")) {
+            parent = parent.parentNode;
+            if (!parent) return;
+        }
 
         const inputElement: Element | null = parent.querySelector("input.qty");
         if (!inputElement) return;
@@ -97,8 +101,12 @@ function App() {
     };
 
     const removeFromCart = (e: React.MouseEvent<HTMLButtonElement>) => {
-        const parent = (e.target as HTMLElement).parentNode;
+        let parent = (e.target as HTMLElement).parentNode;
         if (!parent) return;
+        while (!(parent as HTMLElement).classList.contains("card")) {
+            parent = parent.parentNode;
+            if (!parent) return;
+        }
 
         const productId = (parent as HTMLElement).dataset.productId;
 

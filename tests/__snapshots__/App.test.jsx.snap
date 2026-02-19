@@ -2,35 +2,49 @@
 
 exports[`App component > renders homepage 1`] = `
 <div>
-  <header>
-    <ul>
-      <li>
-        <a
-          data-discover="true"
-          href="/"
+  <header
+    class="_header_e4b327"
+  >
+    <ul
+      class="_ul_e4b327"
+    >
+      <a
+        class="_primary_e4b327"
+        data-discover="true"
+        href="/"
+      >
+        <li
+          class="_li_e4b327"
         >
           Home
-        </a>
-      </li>
-      <li>
-        <a
-          data-discover="true"
-          href="/shop"
+        </li>
+      </a>
+      <a
+        class="_primary_e4b327"
+        data-discover="true"
+        href="/shop"
+      >
+        <li
+          class="_li_e4b327"
         >
           Shop
-        </a>
-      </li>
-      <li>
-        <a
-          data-discover="true"
-          href="/cart"
+        </li>
+      </a>
+      <a
+        class="_primary_e4b327"
+        data-discover="true"
+        href="/cart"
+      >
+        <li
+          class="_li_e4b327"
         >
           Cart (
           0
           )
-        </a>
-      </li>
+        </li>
+      </a>
     </ul>
+    <hr />
   </header>
   <h1>
     Home Page
