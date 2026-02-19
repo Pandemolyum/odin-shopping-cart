@@ -48,13 +48,20 @@ export default function Item({
         }
     };
 
+    const formatter = new Intl.NumberFormat("en-CA", {
+        style: "currency",
+        currency: "CAD",
+    });
+
+    const formatPrice = formatter.format(price);
+
     return (
         <div className={`card ${styles.card}`} data-product-id={productId}>
             <h3 className={styles.title}>{name}</h3>
             <div className={styles.separator}>
                 <img className={styles.img} src={imgUrl} alt="" />
                 <div className={styles.details}>
-                    <p>${price}</p>
+                    <p>{formatPrice}</p>
                     <div className={styles.divqty}>
                         <button
                             className={`${styles.button} ${styles.leftButton}`}

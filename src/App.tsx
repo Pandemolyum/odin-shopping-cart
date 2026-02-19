@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { useParams } from "react-router";
+import { useParams, Link } from "react-router";
 import "./App.css";
 import Header from "./Header.tsx";
 import Home from "./Home.tsx";
@@ -123,23 +123,42 @@ function App() {
     }, []);
 
     // This function determines what the Shop page will output in case errors are encountered
-    const shop = () => {
+    const shopElem = () => {
         if (loading) return <p>Loading...</p>;
         if (error) return <p>A network error was encountered</p>;
         return <Shop addToCart={addToCart} products={products} />;
+    };
+
+    const cartElem = () => {
+        if (cart.length === 0) {
+            return (
+                <>
+                    <h1>Cart</h1>
+                    <p>
+                        There are currently no items in your cart. Head to the{" "}
+                        <Link to="/shop">Shop</Link> page to add some items to
+                        your cart.
+                    </p>
+                </>
+            );
+        } else {
+            return (
+                <Cart
+                    cart={cart}
+                    removeFromCart={removeFromCart}
+                    onQtyChange={onQtyChange}
+                />
+            );
+        }
     };
 
     return (
         <>
             <Header totalItems={totalItems} />
             {name === "cart" ? (
-                <Cart
-                    cart={cart}
-                    removeFromCart={removeFromCart}
-                    onQtyChange={onQtyChange}
-                />
+                cartElem()
             ) : name === "shop" ? (
-                shop()
+                shopElem()
             ) : (
                 <Home />
             )}

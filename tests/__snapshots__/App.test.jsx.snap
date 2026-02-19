@@ -47,7 +47,7 @@ exports[`App component > renders homepage 1`] = `
     <hr />
   </header>
   <h1>
-    Home Page
+    Home
   </h1>
   <p>
     Welcome to the shop!
@@ -55,7 +55,8 @@ exports[`App component > renders homepage 1`] = `
   <p>
     Please take a look at the 
     <a
-      href="shop"
+      data-discover="true"
+      href="/shop"
     >
       Shop
     </a>

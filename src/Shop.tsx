@@ -10,7 +10,7 @@ export default function Shop({
 }) {
     return (
         <>
-            <h1>Shop Page</h1>
+            <h1>Shop</h1>
             <div className="shop">
                 {products &&
                     products.map((item: cartData) =>
